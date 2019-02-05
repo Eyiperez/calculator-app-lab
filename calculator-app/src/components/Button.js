@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../index.css';
 
-const Button = props => {
+const Button = (props) => {
         return (
         <>
         <button class="button col-3">AC</button>

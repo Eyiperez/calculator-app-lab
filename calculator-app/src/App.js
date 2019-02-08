@@ -30,6 +30,7 @@ class App extends Component {
     }
    if(this.state.waitingForNewValue === true) {
       this.setState({ displayValue: e.target.value });
+      this.setState({ waitingForNewValue: false });
     }
     
 
@@ -65,6 +66,7 @@ class App extends Component {
     if (this.state.operation === 'add') {
       const sum = parseInt(this.state.displayValue) + parseInt(this.state.previousValue);
       this.setState({ displayValue: sum });
+      console.log(this.state)
     }
   }
 

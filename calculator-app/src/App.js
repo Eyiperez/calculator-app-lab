@@ -33,7 +33,7 @@ class App extends Component {
       this.setState({ waitingForNewValue: false });
     }
   }
-  
+
   //PERIOD CLICK
   handlePeriodClick = (e) => {
     const newVal = this.state.displayValue.concat(e.target.value)
@@ -142,6 +142,7 @@ class App extends Component {
       const sum = firstVal + secondVal;
       this.setState({ displayValue: sum.toString() });
       this.setState({ previousValue: null })
+      console.log(this.state)
     }
     if (this.state.operation === 'subtract') {
       const secondVal = parseFloat(this.state.displayValue);
@@ -163,6 +164,9 @@ class App extends Component {
       const divide = firstVal / secondVal;
       this.setState({ displayValue: divide.toString() });
       this.setState({ previousValue: null })
+    }
+    if (this.state.previousValue === null){
+      this.setState({ displayValue: this.state.displayValue });
     }
   }
 

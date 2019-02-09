@@ -28,16 +28,26 @@ class App extends Component {
       const newVal = this.state.displayValue.concat(e.target.value)
       this.setState({ displayValue: newVal })
     }
-    if (this.state.waitingForNewValue === true) {
+    if (this.state.waitingForNewValue === true ) {
       this.setState({ displayValue: e.target.value });
       this.setState({ waitingForNewValue: false });
+    }
+    if (this.state.waitingForNewValue === true && this.state.displayValue === '0.' ){
+      const newVal = this.state.displayValue.concat(e.target.value)
+      this.setState({ displayValue: newVal })
     }
   }
 
   //PERIOD CLICK
   handlePeriodClick = (e) => {
-    const newVal = this.state.displayValue.concat(e.target.value)
+    if (this.state.waitingForNewValue === true){
+      const newVal = '0.'
+      this.setState({ displayValue: newVal })
+    }
+    else{
+      const newVal = this.state.displayValue.concat(e.target.value)
     this.setState({ displayValue: newVal })
+    }
   }
 
   //%,CA,NEG-POS

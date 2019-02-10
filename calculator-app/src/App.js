@@ -15,7 +15,7 @@ class App extends Component {
 
     }
   }
-  //NUMBERS CLICKS
+  //***************NUMBERS CLICKS*************************
   handleNumClick = (e) => {
     if (this.state.displayValue === '0') {
       this.setState({ displayValue: e.target.value });
@@ -35,12 +35,12 @@ class App extends Component {
     }
     if (this.state.operation === 'equals' && this.state.displayValue !== '0') {
       this.setState({ displayValue: e.target.value });
-      this.setState({operation: null})
+      this.setState({ operation: null })
     }
   }
 
 
-  //PERIOD CLICK
+  //**********PERIOD CLICK****************
   handlePeriodClick = (e) => {
     if (this.state.waitingForNewValue === true) {
       const newVal = '0.'
@@ -52,7 +52,7 @@ class App extends Component {
     }
   }
 
-  //%,CLEAR,NEG-POS
+  //*************** */%,CLEAR,NEG-POS******************
   handlePercentClick = (e) => {
     const number = parseFloat(this.state.displayValue);
     const percentage = number / 100;
@@ -78,7 +78,9 @@ class App extends Component {
     this.setState({ displayValue: plusMinus.toString() });
   }
 
-  //OPERATIONS 
+  //*******OPERATIONS********************** 
+
+  //ADD
   handleAddClick = (e) => {
     if (this.state.previousValue !== null) {
       const secondVal = parseFloat(this.state.displayValue);
@@ -89,7 +91,7 @@ class App extends Component {
       this.setState({ operation: 'add' });
       this.setState({ waitingForNewValue: true });
     }
-    if(this.state.previousValue === null) {
+    if (this.state.previousValue === null) {
       this.setState({ operation: 'add' });
       this.setState({ waitingForNewValue: true });
       this.setState({ previousValue: this.state.displayValue });
@@ -99,7 +101,7 @@ class App extends Component {
       const secondVal = parseFloat(this.state.previousValue);
       const multiply = firstVal * secondVal;
       this.setState({ displayValue: multiply.toString() });
-      this.setState({ previousValue: multiply.toString() }); 
+      this.setState({ previousValue: multiply.toString() });
       this.setState({ operation: 'add' });
     }
     if (this.state.operation === 'divide') {
@@ -116,10 +118,11 @@ class App extends Component {
       const subtract = firstVal - secondVal;
       this.setState({ displayValue: subtract.toString() });
       this.setState({ previousValue: subtract.toString() });
-      this.setState({ operation: 'add' });   
+      this.setState({ operation: 'add' });
     }
   }
 
+  //SUBTRACT
   handleSubtractClick = (e) => {
     if (this.state.previousValue !== null) {
       const secondVal = parseFloat(this.state.displayValue);
@@ -130,7 +133,7 @@ class App extends Component {
       this.setState({ operation: 'subtract' });
       this.setState({ waitingForNewValue: true });
     }
-    if(this.state.previousValue === null) {
+    if (this.state.previousValue === null) {
       this.setState({ operation: 'subtract' });
       this.setState({ waitingForNewValue: true });
       this.setState({ previousValue: this.state.displayValue });
@@ -138,20 +141,17 @@ class App extends Component {
     if (this.state.operation === 'add') {
       const firstVal = parseFloat(this.state.displayValue);
       const secondVal = parseFloat(this.state.previousValue);
-      console.log('fisrt', firstVal)
-      console.log('secon', secondVal)
       const sum = firstVal + secondVal;
       this.setState({ displayValue: sum.toString() });
-      this.setState({ previousValue: sum.toString() });  
-      this.setState({ operation: 'subtract' }); 
-      console.log(sum)
+      this.setState({ previousValue: sum.toString() });
+      this.setState({ operation: 'subtract' });
     }
     if (this.state.operation === 'multiply') {
       const firstVal = parseFloat(this.state.displayValue);
       const secondVal = parseFloat(this.state.previousValue);
       const multiply = firstVal * secondVal;
       this.setState({ displayValue: multiply.toString() });
-      this.setState({ previousValue: multiply.toString() }); 
+      this.setState({ previousValue: multiply.toString() });
       this.setState({ operation: 'subtract' });
     }
     if (this.state.operation === 'divide') {
@@ -164,6 +164,7 @@ class App extends Component {
     }
   }
 
+  //MULTIPLY
   handleMultiplyClick = (e) => {
     if (this.state.previousValue !== null) {
       const firstVal = parseFloat(this.state.displayValue);
@@ -174,7 +175,7 @@ class App extends Component {
       this.setState({ operation: 'multiply' });
       this.setState({ waitingForNewValue: true });
     }
-    if(this.state.previousValue === null) {
+    if (this.state.previousValue === null) {
       this.setState({ operation: 'multiply' });
       this.setState({ waitingForNewValue: true });
       this.setState({ previousValue: this.state.displayValue });
@@ -184,7 +185,7 @@ class App extends Component {
       const secondVal = parseFloat(this.state.previousValue);
       const sum = firstVal + secondVal;
       this.setState({ displayValue: sum.toString() });
-      this.setState({ previousValue: sum.toString() });   
+      this.setState({ previousValue: sum.toString() });
       this.setState({ operation: 'multiply' });
     }
     if (this.state.operation === 'subtract') {
@@ -192,8 +193,8 @@ class App extends Component {
       const firstVal = parseFloat(this.state.previousValue);
       const subtract = firstVal - secondVal;
       this.setState({ displayValue: subtract.toString() });
-      this.setState({ previousValue: subtract.toString() });  
-      this.setState({ operation: 'multiply' }); 
+      this.setState({ previousValue: subtract.toString() });
+      this.setState({ operation: 'multiply' });
     }
     if (this.state.operation === 'divide') {
       const secondVal = parseFloat(this.state.displayValue);
@@ -205,6 +206,7 @@ class App extends Component {
     }
   }
 
+  //DIVIDE
   handleDivideClick = (e) => {
     if (this.state.previousValue !== null) {
       const secondVal = parseFloat(this.state.displayValue);
@@ -215,7 +217,7 @@ class App extends Component {
       this.setState({ operation: 'divide' });
       this.setState({ waitingForNewValue: true });
     }
-    if (this.state.previousValue === null){
+    if (this.state.previousValue === null) {
       this.setState({ operation: 'divide' });
       this.setState({ waitingForNewValue: true });
       this.setState({ previousValue: this.state.displayValue });
@@ -225,8 +227,8 @@ class App extends Component {
       const secondVal = parseFloat(this.state.previousValue);
       const sum = firstVal + secondVal;
       this.setState({ displayValue: sum.toString() });
-      this.setState({ previousValue: sum.toString() });  
-      this.setState({ operation: 'divide' }); 
+      this.setState({ previousValue: sum.toString() });
+      this.setState({ operation: 'divide' });
     }
     if (this.state.operation === 'subtract') {
       const secondVal = parseFloat(this.state.displayValue);
@@ -234,14 +236,14 @@ class App extends Component {
       const subtract = firstVal - secondVal;
       this.setState({ displayValue: subtract.toString() });
       this.setState({ previousValue: subtract.toString() });
-      this.setState({ operation: 'divide' });  
+      this.setState({ operation: 'divide' });
     }
     if (this.state.operation === 'multiply') {
       const firstVal = parseFloat(this.state.displayValue);
       const secondVal = parseFloat(this.state.previousValue);
       const multiply = firstVal * secondVal;
       this.setState({ displayValue: multiply.toString() });
-      this.setState({ previousValue: multiply.toString() }); 
+      this.setState({ previousValue: multiply.toString() });
       this.setState({ operation: 'divide' });
     }
   }
@@ -254,7 +256,7 @@ class App extends Component {
       const sum = firstVal + secondVal;
       this.setState({ displayValue: sum.toString() });
       this.setState({ previousValue: null })
-      this.setState({ operation: 'equals'});
+      this.setState({ operation: 'equals' });
     }
     if (this.state.operation === 'subtract') {
       const secondVal = parseFloat(this.state.displayValue);
@@ -262,7 +264,7 @@ class App extends Component {
       const subtract = firstVal - secondVal;
       this.setState({ displayValue: subtract.toString() });
       this.setState({ previousValue: null })
-      this.setState({ operation: 'equals'});
+      this.setState({ operation: 'equals' });
     }
     if (this.state.operation === 'multiply') {
       const firstVal = parseFloat(this.state.displayValue);
@@ -270,7 +272,7 @@ class App extends Component {
       const multiply = firstVal * secondVal;
       this.setState({ displayValue: multiply.toString() });
       this.setState({ previousValue: null })
-      this.setState({ operation: 'equals'});
+      this.setState({ operation: 'equals' });
     }
     if (this.state.operation === 'divide') {
       const secondVal = parseFloat(this.state.displayValue);
@@ -278,11 +280,11 @@ class App extends Component {
       const divide = firstVal / secondVal;
       this.setState({ displayValue: divide.toString() });
       this.setState({ previousValue: null })
-      this.setState({ operation: 'equals'});
+      this.setState({ operation: 'equals' });
     }
     if (this.state.previousValue === null) {
       this.setState({ displayValue: this.state.displayValue });
-      this.setState({ operation: 'equals'});
+      this.setState({ operation: 'equals' });
     }
   }
 
@@ -291,7 +293,6 @@ class App extends Component {
     const toggleClear = this.state.previousValue ? <button className="button col-3" onClick={this.handleClearClick}>C</button> :
       <button className="button col-3" onClick={this.handleClearClick}>AC</button>;
     return (
-
       <>
         <div className='holder'>
           <div className='calculator'>
@@ -320,7 +321,6 @@ class App extends Component {
           </div>
         </div>
       </>
-
     )
   }
 }

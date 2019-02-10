@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-//import Display from './components/display';
-import './index.css';
-//import Button from './container/Button';
+import './components/calculator.css';
 
 
 class App extends Component {
@@ -19,7 +17,6 @@ class App extends Component {
   }
   //NUMBERS CLICKS
   handleNumClick = (e) => {
-    console.log(e.target.value)
     if (this.state.displayValue === '0') {
       this.setState({ displayValue: e.target.value });
 
@@ -28,11 +25,11 @@ class App extends Component {
       const newVal = this.state.displayValue.concat(e.target.value)
       this.setState({ displayValue: newVal })
     }
-    if (this.state.waitingForNewValue === true ) {
+    if (this.state.waitingForNewValue === true) {
       this.setState({ displayValue: e.target.value });
       this.setState({ waitingForNewValue: false });
     }
-    if (this.state.waitingForNewValue === true && this.state.displayValue === '0.' ){
+    if (this.state.waitingForNewValue === true && this.state.displayValue === '0.') {
       const newVal = this.state.displayValue.concat(e.target.value)
       this.setState({ displayValue: newVal })
     }
@@ -40,17 +37,17 @@ class App extends Component {
 
   //PERIOD CLICK
   handlePeriodClick = (e) => {
-    if (this.state.waitingForNewValue === true){
+    if (this.state.waitingForNewValue === true) {
       const newVal = '0.'
       this.setState({ displayValue: newVal })
     }
-    else{
+    else {
       const newVal = this.state.displayValue.concat(e.target.value)
-    this.setState({ displayValue: newVal })
+      this.setState({ displayValue: newVal })
     }
   }
 
-  //%,CA,NEG-POS
+  //%,CLEAR,NEG-POS
   handlePercentClick = (e) => {
     const number = parseFloat(this.state.displayValue);
     const percentage = number / 100;
@@ -63,12 +60,17 @@ class App extends Component {
     }
     if (this.state.previousValue !== null) {
       this.setState({
-        displayValue: '0',
+        displayValue: this.state.previousValue,
         previousValue: null,
         operation: null,
         waitingForNewValue: false
       })
     }
+  }
+
+  handleNegPosClick = (e) => {
+    const plusMinus = parseFloat(this.state.displayValue) * -1;
+    this.setState({ displayValue: plusMinus.toString() });
   }
 
   //OPERATIONS 
@@ -86,7 +88,6 @@ class App extends Component {
       this.setState({ operation: 'add' });
       this.setState({ waitingForNewValue: true });
       this.setState({ previousValue: this.state.displayValue });
-      console.log(this.state)
     }
   }
 
@@ -104,7 +105,6 @@ class App extends Component {
       this.setState({ operation: 'subtract' });
       this.setState({ waitingForNewValue: true });
       this.setState({ previousValue: this.state.displayValue });
-      console.log(this.state)
     }
   }
 
@@ -122,7 +122,6 @@ class App extends Component {
       this.setState({ operation: 'multiply' });
       this.setState({ waitingForNewValue: true });
       this.setState({ previousValue: this.state.displayValue });
-      console.log(this.state)
     }
   }
 
@@ -140,7 +139,6 @@ class App extends Component {
       this.setState({ operation: 'divide' });
       this.setState({ waitingForNewValue: true });
       this.setState({ previousValue: this.state.displayValue });
-      console.log(this.state)
     }
   }
 
@@ -152,7 +150,6 @@ class App extends Component {
       const sum = firstVal + secondVal;
       this.setState({ displayValue: sum.toString() });
       this.setState({ previousValue: null })
-      console.log(this.state)
     }
     if (this.state.operation === 'subtract') {
       const secondVal = parseFloat(this.state.displayValue);
@@ -175,12 +172,15 @@ class App extends Component {
       this.setState({ displayValue: divide.toString() });
       this.setState({ previousValue: null })
     }
-    if (this.state.previousValue === null){
+    if (this.state.previousValue === null) {
       this.setState({ displayValue: this.state.displayValue });
     }
   }
 
   render() {
+    //CLEAR BUTTON TOGGLE DISPLAY
+    const toggleClear = this.state.previousValue ? <button className="button col-3" onClick={this.handleClearClick}>C</button> :
+      <button className="button col-3" onClick={this.handleClearClick}>AC</button>;
     return (
 
       <>
@@ -188,9 +188,9 @@ class App extends Component {
           <div className='calculator'>
             <div className='row'>
               <div className="col-12 inputview">{this.state.displayValue}</div>
-              <button className="button col-3" onClick={this.handleClearClick} value='0'>AC</button>
+              {toggleClear}
               <button className="button col-3" onClick={this.handlePercentClick}>%</button>
-              <button className="button col-3">±</button>
+              <button className="button col-3" onClick={this.handleNegPosClick}>±</button>
               <button className="button col-3 orange" onClick={this.handleDivideClick}>÷</button>
               <button className="button col-3" onClick={this.handleNumClick} value='7' >7</button>
               <button className="button col-3" onClick={this.handleNumClick} value='8' >8</button>

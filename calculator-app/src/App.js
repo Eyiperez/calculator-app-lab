@@ -33,7 +33,12 @@ class App extends Component {
       const newVal = this.state.displayValue.concat(e.target.value)
       this.setState({ displayValue: newVal })
     }
+    if (this.state.operation === 'equals' && this.state.displayValue !== '0') {
+      this.setState({ displayValue: e.target.value });
+      this.setState({operation: null})
+    }
   }
+
 
   //PERIOD CLICK
   handlePeriodClick = (e) => {
@@ -76,18 +81,39 @@ class App extends Component {
   //OPERATIONS 
   handleAddClick = (e) => {
     if (this.state.previousValue !== null) {
-      const firstVal = parseFloat(this.state.displayValue);
-      const secondVal = parseFloat(this.state.previousValue);
+      const secondVal = parseFloat(this.state.displayValue);
+      const firstVal = parseFloat(this.state.previousValue);
       const sum = firstVal + secondVal;
-      this.setState({ displayValue: firstVal.toString() });
+      this.setState({ displayValue: secondVal.toString() });
       this.setState({ previousValue: sum.toString() });
       this.setState({ operation: 'add' });
       this.setState({ waitingForNewValue: true });
     }
-    else {
+    if(this.state.previousValue === null) {
       this.setState({ operation: 'add' });
       this.setState({ waitingForNewValue: true });
       this.setState({ previousValue: this.state.displayValue });
+    }
+    if (this.state.operation === 'multiply') {
+      const firstVal = parseFloat(this.state.displayValue);
+      const secondVal = parseFloat(this.state.previousValue);
+      const multiply = firstVal * secondVal;
+      this.setState({ previousValue: multiply.toString() }); 
+      this.setState({ operation: 'add' });
+    }
+    if (this.state.operation === 'divide') {
+      const secondVal = parseFloat(this.state.displayValue);
+      const firstVal = parseFloat(this.state.previousValue);
+      const divide = firstVal / secondVal;
+      this.setState({ previousValue: divide.toString() });
+      this.setState({ operation: 'add' });
+    }
+    if (this.state.operation === 'subtract') {
+      const secondVal = parseFloat(this.state.displayValue);
+      const firstVal = parseFloat(this.state.previousValue);
+      const subtract = firstVal - secondVal;
+      this.setState({ previousValue: subtract.toString() });
+      this.setState({ operation: 'add' });   
     }
   }
 
@@ -101,10 +127,34 @@ class App extends Component {
       this.setState({ operation: 'subtract' });
       this.setState({ waitingForNewValue: true });
     }
-    else {
+    if(this.state.previousValue === null) {
       this.setState({ operation: 'subtract' });
       this.setState({ waitingForNewValue: true });
       this.setState({ previousValue: this.state.displayValue });
+    }
+    if (this.state.operation === 'add') {
+      const firstVal = parseFloat(this.state.displayValue);
+      const secondVal = parseFloat(this.state.previousValue);
+      console.log('fisrt', firstVal)
+      console.log('secon', secondVal)
+      const sum = firstVal + secondVal;
+      this.setState({ previousValue: sum.toString() });  
+      this.setState({ operation: 'subtract' }); 
+      console.log(sum)
+    }
+    if (this.state.operation === 'multiply') {
+      const firstVal = parseFloat(this.state.displayValue);
+      const secondVal = parseFloat(this.state.previousValue);
+      const multiply = firstVal * secondVal;
+      this.setState({ previousValue: multiply.toString() }); 
+      this.setState({ operation: 'subtract' });
+    }
+    if (this.state.operation === 'divide') {
+      const secondVal = parseFloat(this.state.displayValue);
+      const firstVal = parseFloat(this.state.previousValue);
+      const divide = firstVal / secondVal;
+      this.setState({ previousValue: divide.toString() });
+      this.setState({ operation: 'subtract' });
     }
   }
 
@@ -118,10 +168,31 @@ class App extends Component {
       this.setState({ operation: 'multiply' });
       this.setState({ waitingForNewValue: true });
     }
-    else {
+    if(this.state.previousValue === null) {
       this.setState({ operation: 'multiply' });
       this.setState({ waitingForNewValue: true });
       this.setState({ previousValue: this.state.displayValue });
+    }
+    if (this.state.operation === 'add') {
+      const firstVal = parseFloat(this.state.displayValue);
+      const secondVal = parseFloat(this.state.previousValue);
+      const sum = firstVal + secondVal;
+      this.setState({ previousValue: sum.toString() });   
+      this.setState({ operation: 'multiply' });
+    }
+    if (this.state.operation === 'subtract') {
+      const secondVal = parseFloat(this.state.displayValue);
+      const firstVal = parseFloat(this.state.previousValue);
+      const subtract = firstVal - secondVal;
+      this.setState({ previousValue: subtract.toString() });  
+      this.setState({ operation: 'multiply' }); 
+    }
+    if (this.state.operation === 'divide') {
+      const secondVal = parseFloat(this.state.displayValue);
+      const firstVal = parseFloat(this.state.previousValue);
+      const divide = firstVal / secondVal;
+      this.setState({ previousValue: divide.toString() });
+      this.setState({ operation: 'multiply' });
     }
   }
 
@@ -135,10 +206,31 @@ class App extends Component {
       this.setState({ operation: 'divide' });
       this.setState({ waitingForNewValue: true });
     }
-    else {
+    if (this.state.previousValue === null){
       this.setState({ operation: 'divide' });
       this.setState({ waitingForNewValue: true });
       this.setState({ previousValue: this.state.displayValue });
+    }
+    if (this.state.operation === 'add') {
+      const firstVal = parseFloat(this.state.displayValue);
+      const secondVal = parseFloat(this.state.previousValue);
+      const sum = firstVal + secondVal;
+      this.setState({ previousValue: sum.toString() });  
+      this.setState({ operation: 'divide' }); 
+    }
+    if (this.state.operation === 'subtract') {
+      const secondVal = parseFloat(this.state.displayValue);
+      const firstVal = parseFloat(this.state.previousValue);
+      const subtract = firstVal - secondVal;
+      this.setState({ previousValue: subtract.toString() });
+      this.setState({ operation: 'divide' });  
+    }
+    if (this.state.operation === 'multiply') {
+      const firstVal = parseFloat(this.state.displayValue);
+      const secondVal = parseFloat(this.state.previousValue);
+      const multiply = firstVal * secondVal;
+      this.setState({ previousValue: multiply.toString() }); 
+      this.setState({ operation: 'divide' });
     }
   }
 
@@ -150,6 +242,7 @@ class App extends Component {
       const sum = firstVal + secondVal;
       this.setState({ displayValue: sum.toString() });
       this.setState({ previousValue: null })
+      this.setState({ operation: 'equals'});
     }
     if (this.state.operation === 'subtract') {
       const secondVal = parseFloat(this.state.displayValue);
@@ -157,6 +250,7 @@ class App extends Component {
       const subtract = firstVal - secondVal;
       this.setState({ displayValue: subtract.toString() });
       this.setState({ previousValue: null })
+      this.setState({ operation: 'equals'});
     }
     if (this.state.operation === 'multiply') {
       const firstVal = parseFloat(this.state.displayValue);
@@ -164,6 +258,7 @@ class App extends Component {
       const multiply = firstVal * secondVal;
       this.setState({ displayValue: multiply.toString() });
       this.setState({ previousValue: null })
+      this.setState({ operation: 'equals'});
     }
     if (this.state.operation === 'divide') {
       const secondVal = parseFloat(this.state.displayValue);
@@ -171,9 +266,11 @@ class App extends Component {
       const divide = firstVal / secondVal;
       this.setState({ displayValue: divide.toString() });
       this.setState({ previousValue: null })
+      this.setState({ operation: 'equals'});
     }
     if (this.state.previousValue === null) {
       this.setState({ displayValue: this.state.displayValue });
+      this.setState({ operation: 'equals'});
     }
   }
 
@@ -217,5 +314,4 @@ class App extends Component {
 }
 
 
-
-export default App;
+export default App
